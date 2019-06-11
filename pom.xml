@@ -8,11 +8,8 @@
     <artifactId>spark-demo</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
-    <modules>
-        <module>demos</module>
-    </modules>
     <properties>
-        <spark.version>2.3.0</spark.version>
+        <spark.version>2.3.1</spark.version>
         <kafka.clients.version>0.8.2.1</kafka.clients.version>
     </properties>
     <dependencies>
