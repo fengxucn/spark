@@ -268,4 +268,20 @@ class Utils {
       s"${time}[UTC]"
   })
 
+//using swift to save dataframe to object store
+  private def save(spark : SparkSession, df : DataFrame, properties: Properties, tableName : String): Unit = {
+    val uber_container = properties.getProperty("container_name")
+    val os_hostName = properties.getProperty("os_hostName")
+    ObjectStore.getOrCreateContainer(spark, uber_container, properties.getProperty("dc"), os_hostName)
+
+    df
+      .write
+      .format(properties.getProperty("fileFormat"))
+      .option("delimiter", ",")
+      .option("header", "true")
+      .option("codec", properties.getProperty("sparkCodeC"))
+      .mode("overwrite")
+      .save(s"swift://$uber_container.$os_hostName/$tableName")
+  }
+
 }
